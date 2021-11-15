@@ -57,21 +57,28 @@ public class PizzaController : ControllerBase
         }
         return NotFound();
     }
-    [HttpPut]
-    [Route ("{Id}")]
-        public async Task<IActionResult> UpdatePizzaAsync(Guid ID,[FromRoute]UpdateOrder updatedorder)
-        {
-            
-            var entity = updatedorder.ToPizzaEntities();
-            var updateResult = await _pizzaStore.UpdateOrderAsync(entity);
+   [HttpPut]
+[Route("{id}")]
+public async Task<ActionResult> CreateAsync([FromRoute]Guid id, [FromBody]Models.NewPizza pizza) 
+{
+	// if(pizza.Id==id){
+    //    var pizzaentitiy=pizza.ToPizzaEntities();
+    //    var result= await _pizzaStore.UpdateOrderAsync(pizzaentitiy);
+    //     return Ok(result.pizza);
+    // }else{
+    //     return BadRequest();
+    // }
 
-            if(updateResult.isSuccess)
-            {
-                return Ok();
-            }
+    var entities = pizza.ToPizzaEntities();
+    entities.Id = id;
+    var result = await _pizzaStore.UpdateOrderAsync(entities);
 
-            return BadRequest(updateResult.exception.Message);
-        }
+    if(result.isSuccess)
+    {
+        return Ok(result.pizza);
+    }
+    return BadRequest();
+}
     [HttpDelete]
     [Route("{Id}")]
         public async Task<IActionResult> DelateTaskAsync([FromRoute]Guid Id)

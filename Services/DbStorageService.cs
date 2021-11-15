@@ -36,7 +36,7 @@ namespace PizzaApi.Services
             }
         }
 
-        public async Task<(bool isSuccess, Exception exception)> UpdateOrderAsync(Pizza pizza)
+        public async Task<(bool isSuccess, Exception exception, Pizza pizza)> UpdateOrderAsync(Pizza pizza)
         {
              try
             {
@@ -45,16 +45,16 @@ namespace PizzaApi.Services
                     _context.Pizzas.Update(pizza);
                     await _context.SaveChangesAsync();
 
-                    return (true, null);
+                    return (true, null, pizza);
                 }
                 else
                 {
-                    return (false, new Exception($"Order with ID: {pizza.Id} doesnt exist!"));
+                    return (false, new Exception($"Order with ID: {pizza.Id} doesnt exist!"), null);
                 }
             }
             catch(Exception e)
             {
-                return (false, e);
+                return (false, e, null);
             }
         }
 

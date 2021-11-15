@@ -10,7 +10,7 @@ namespace PizzaApi.Services
         Task<(bool IsSuccess, Exception exception)> InsertPizzaAsync(Pizza pizza);
         Task<(bool IsSuccess, Exception exception, List<Models.NewPizza> pizza)> GetPizzaAsync();
         Task<(bool IsSuccess, Exception exception, Pizza pizzaResult)> GetPizzaAsync(Guid Id);
-        Task<(bool isSuccess, Exception exception)> UpdateOrderAsync(Enteties.Pizza pizza);
+        Task<(bool isSuccess, Exception exception, Pizza pizza)> UpdateOrderAsync(Enteties.Pizza pizza);
 
         Task<(bool isSuccess, Exception exception)> DelatePizzaAsync(Guid id);
     }
