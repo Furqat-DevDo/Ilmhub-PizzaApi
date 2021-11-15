@@ -6,27 +6,28 @@ using System.Text.Json.Serialization;
 
 namespace PizzaApi.Models
 {
-    public class Pizza
+    public class NewPizza
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
-        Guid Id{get;set;}
+        [Key]
+        [ DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public Guid Id{get;set;}
 
         [Required,MaxLength(255)]
         [NotNull]
-        string Title{get;set;}
+        public string Title{get;set;}
 
         [Required,MaxLength(3)]
-        string ShortName{get;set;}
+        public string ShortName{get;set;}
 
         [Required]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        EPizzaStockStatus stockStatus{get;set;}
+        public EPizzaStockStatus stockStatus{get;set;}
 
         [Required,MaxLength(1024)]
-        string Ingredients{get;set;}
+        public string Ingredients{get;set;}
 
         [Required,Range(0,1000)]
-        double Price{get;set;}
+        public double Price{get;set;}
         
     }
 }

@@ -5,28 +5,29 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PizzaApi.Enteties
 {
-    public class PizzaEntity
+    public class Pizza
     {
        
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
-        Guid Id{get;set;}
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+       public  Guid Id{get;set;}
 
         [Required,MaxLength(255)]
         [NotNull]
-        string Title{get;set;}
+       public  string Title{get;set;}
         [Required,MaxLength(3)]
-        string ShortName{get;set;}
+        public string ShortName{get;set;}
         [Required]
-        EPizzaStockStatus stockStatus{get;set;}
+        public EPizzaStockStatus stockStatus{get;set;}
         [Required,MaxLength(1024)]
-        string Ingredients{get;set;}
+       public  string Ingredients{get;set;}
         [Required,Range(0,1000)]
-        double Price{get;set;}
+       public  double Price{get;set;}
 
         [Obsolete]
-        public PizzaEntity(){}
+        public Pizza(){}
 
-         public PizzaEntity( string title, string shortName, EPizzaStockStatus stockStatus, string ingredients, double price)
+         public Pizza( string title, string shortName, EPizzaStockStatus stockStatus, string ingredients, double price)
         {
             Id = Guid.NewGuid();
             Title = title;

@@ -6,11 +6,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using PizzaApi.Data;
+using PizzaApi.Services;
 
 namespace PizzaApi
 {
@@ -26,14 +30,16 @@ namespace PizzaApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddDbContext<PizzaDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("SqlServerConnection"))); 
+            services.AddTransient<IStorageService, DbStorageService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PizzaApi", Version = "v1" });
             });
         }
-
+         
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
